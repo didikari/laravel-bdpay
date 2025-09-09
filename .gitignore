@@ -1,0 +1,11 @@
+/vendor/
+/node_modules/
+/.env
+/.env.local
+/.env.production
+/.env.testing
+.phpunit.result.cache
+composer.lock
+*.log
+*.tmp
+*.temp
