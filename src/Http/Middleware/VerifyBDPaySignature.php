@@ -4,6 +4,7 @@ namespace BDPay\LaravelBDPay\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use BDPay\LaravelBDPay\Facades\BDPay;
 use BDPay\LaravelBDPay\Exceptions\InvalidSignatureException;
 
@@ -12,7 +13,7 @@ class VerifyBDPaySignature
     /**
      * Handle an incoming request.
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         if (!config('bdpay.webhook.verify_signature', true)) {
             return $next($request);
