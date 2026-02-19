@@ -203,10 +203,13 @@ class BDPayClient
         
         // Remove sign parameter if exists
         unset($data['sign']);
-        
+
+        // Filter out null values
+        $data = array_filter($data, fn ($val) => !is_null($val));
+
         // Sort parameters by key
         ksort($data);
-        
+
         // Create parameter string by concatenating values (not key=value format)
         $params_str = '';
         foreach ($data as $key => $val) {
