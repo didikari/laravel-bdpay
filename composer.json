@@ -3,7 +3,7 @@
   "description": "Laravel package for BDPay payment gateway integration",
   "type": "library",
   "license": "MIT",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "keywords": [
     "laravel",
     "bdpay",

@@ -20,20 +20,22 @@ class VerifyBDPaySignature
         }
 
         try {
-            $signature = $request->header('X-BDPay-Signature');
-            
-            if (!$signature) {
-                \Log::warning('BDPay webhook received without signature header', [
+            $payload = $request->all();
+            $signature = $payload['platSign'] ?? $payload['sign'] ?? '';
+
+            if (empty($signature)) {
+                \Log::warning('BDPay webhook received without signature', [
                     'url' => $request->url(),
                     'method' => $request->method(),
-                    'headers' => $request->headers->all(),
+                    'payload' => $payload,
                 ]);
-                throw new InvalidSignatureException('Missing BDPay signature header');
+                throw new InvalidSignatureException('Missing BDPay signature');
             }
 
-            $payload = $request->all();
-            
-            if (!BDPay::verifySignature($signature, $payload)) {
+            $data = $payload;
+            unset($data['platSign']);
+
+            if (!BDPay::verifySignature($signature, $data)) {
                 \Log::warning('BDPay webhook signature verification failed', [
                     'url' => $request->url(),
                     'method' => $request->method(),
