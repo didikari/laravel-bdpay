@@ -48,7 +48,6 @@ class FundAcceptanceService
 
         $payload = [
             'merchantCode' => $this->client->getMerchantCode(),
-            'method' => $data['payment_method'] ?? 'all',
             'orderNum' => $data['order_id'],
             'payMoney' => (string) $data['amount'],
             'productDetail' => $data['description'] ?? 'Payment',
@@ -60,6 +59,10 @@ class FundAcceptanceService
             'expiryPeriod' => $data['expiry_period'] ?? '30',
             'dateTime' => date('c'), // ISO 8601 format
         ];
+
+        if (!empty($data['payment_method'])) {
+            $payload['method'] = $data['payment_method'];
+        }
 
         return $this->client->request('POST', '/gateway/prepaidOrder', $payload);
     }
