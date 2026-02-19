@@ -26,12 +26,14 @@ return [
             'merchant_code' => env('BDPAY_SANDBOX_MERCHANT_CODE'),
             'public_key' => env('BDPAY_SANDBOX_PUBLIC_KEY'),
             'secret_key' => env('BDPAY_SANDBOX_SECRET_KEY'),
+            'platform_public_key' => env('BDPAY_SANDBOX_PLATFORM_PUBLIC_KEY'),
         ],
         'production' => [
             'base_url' => 'https://openapi.bdpay.co.id',
             'merchant_code' => env('BDPAY_PRODUCTION_MERCHANT_CODE'),
             'public_key' => env('BDPAY_PRODUCTION_PUBLIC_KEY'),
             'secret_key' => env('BDPAY_PRODUCTION_SECRET_KEY'),
+            'platform_public_key' => env('BDPAY_PRODUCTION_PLATFORM_PUBLIC_KEY'),
         ],
     ],
 

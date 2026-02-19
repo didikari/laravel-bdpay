@@ -227,25 +227,19 @@ class BDPayClient
     {
         try {
             $apiConfig = $this->config['api'][$this->environment];
-            
-            // Remove sign parameter if exists
-            unset($data['sign']);
-            
-            // Sort parameters by key
+
+            unset($data['sign'], $data['platSign']);
             ksort($data);
-            
-            // Create parameter string by concatenating values
+
             $params_str = '';
             foreach ($data as $key => $val) {
                 $params_str = $params_str . $val;
             }
-            
-            // Decrypt signature using public key
-            $decryptedSignature = $this->publicKeyDecrypt($signature, $apiConfig['public_key']);
-            
-            // Compare decrypted signature with expected string
+
+            $key = $apiConfig['platform_public_key'] ?? $apiConfig['public_key'];
+            $decryptedSignature = $this->publicKeyDecrypt($signature, $key);
+
             return hash_equals($params_str, $decryptedSignature);
-            
         } catch (\Exception $e) {
             return false;
         }
