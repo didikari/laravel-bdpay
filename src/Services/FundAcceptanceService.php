@@ -57,7 +57,7 @@ class FundAcceptanceService
             'phone' => $data['customer_phone'],
             'notifyUrl' => $data['callback_url'] ?? $this->client->getConfig()['webhook']['payment_callback_url'],
             'expiryPeriod' => (string) ($data['expiry_period'] ?? '30'),
-            'dateTime' => date('YmdHis'),
+            'dateTime' => date('c'),
         ];
 
         return $this->client->request('POST', '/gateway/prepaidOrder', $payload);
